@@ -1,0 +1,22 @@
+{
+  "name": "mcp-blog-api",
+  "version": "1.0.0",
+  "description": "MCP Blog API - Node.js + MongoDB",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.13.0",
+    "@azure/keyvault-secrets": "^4.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^9.3.0"
+  }
+}
