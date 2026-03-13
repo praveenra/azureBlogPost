@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
     try {
+        console.log("process.env.MONGODB_URI:", process.env.MONGODB_URI);
         if (!process.env.MONGODB_URI) {
             throw new Error("MONGODB_URI is not defined");
         }

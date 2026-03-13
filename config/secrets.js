@@ -1,7 +1,7 @@
 import { SecretClient } from "@azure/keyvault-secrets";
 import { DefaultAzureCredential } from "@azure/identity";
 
-const keyVaultName = process.env.KEY_VAULT_NAME;
+const keyVaultName = process.env.KEY_VAULT_NAME || "blogpostPROD";
 const kvUri = `https://${keyVaultName}.vault.azure.net`;
 
 const credential = new DefaultAzureCredential();
