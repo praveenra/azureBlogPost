@@ -8,11 +8,17 @@ const credential = new DefaultAzureCredential();
 const client = new SecretClient(kvUri, credential);
 
 export async function loadSecrets(secretNames = []) {
-  if (!secretNames.length) {
+  const names = Array.isArray(secretNames)
+    ? secretNames
+    : (typeof secretNames === "string" && secretNames.trim()
+        ? secretNames.split(",").map((s) => s.trim())
+        : []);
+
+  if (!names.length) {
     throw new Error("Secret names are required");
   }
 
-  for (const name of secretNames) {
+  for (const name of names) {
     const secret = await client.getSecret(name);
 
     if (secret?.value) {
