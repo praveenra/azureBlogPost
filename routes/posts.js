@@ -2,10 +2,6 @@ import  express from 'express';
 import Post from '../models/Post.js';
 const router = express.Router();
 
-// Health check endpoint
-router.get('/health', (req, res) => {
-  res.json({ status: 'ok', message: 'MCP Blog API is running' });
-});
 // GET all posts
 router.get('/', async (req, res) => {
   try {
