@@ -5,6 +5,13 @@ docker build -t blogpostapi .
 docker run -p 3000:3000 `
 -e PORT=3000 `
 -e NODE_ENV=development `
+-e "MONGODB_URI=mongodb://raju:Bhai1994@fc-b6df677d2341-000.global.mongocluster.cosmos.azure.com:10260/mcp-blog?tls=true&authMechanism=SCRAM-SHA-256&retryWrites=false" `
+-e KEY_VAULT_NAME=blogpostPROD `
+blogpostapi-4
+
+docker run -p 3000:3000 `
+-e PORT=3000 `
+-e NODE_ENV=development `
 -e "MONGODB_URI=mongodb+srv://useradmin:Raju1994@blogpost-cosmos.global.mongocluster.cosmos.azure.com/mcp-blog?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000" `
 -e KEY_VAULT_NAME=blogpostPROD `
 blogpostapi
