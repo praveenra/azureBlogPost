@@ -1,17 +1,13 @@
 import app from "./app.js";
-import { loadEnvironment } from "./config/env.js";
 import connectDB from "./config/db.js";
+import config from "./config/index.js";
 
 async function bootstrap() {
-  // 1️⃣ Load env variables
-  await loadEnvironment();
-
-  // 2️⃣ Connect database
+  // Connect database
   await connectDB();
 
-  // 3️⃣ Start server
-  const PORT = process.env.PORT || 3000;
-  console.log(`Port : ${PORT}`);
+  // Start server
+  const PORT = config.port;
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 Server running on port ${PORT}`);
   });

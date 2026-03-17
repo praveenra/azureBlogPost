@@ -1,14 +1,36 @@
 import { SecretClient } from "@azure/keyvault-secrets";
 import { DefaultAzureCredential } from "@azure/identity";
 
-const keyVaultName = process.env.SECRET_NAME || "blogpostPROD";
+const keyVaultName = process.env.SECRET_NAME || "blogpostsm";
 const kvUri = `https://${keyVaultName.toLowerCase()}.vault.azure.net`;
-console.log(`SECRET_NAME: ${keyVaultName}`);
-console.log(`kvUri: ${kvUri}`);
 const credential = new DefaultAzureCredential();
 const client = new SecretClient(kvUri, credential);
 
-export async function loadSecrets(secretNames = []) {
+export async function loadSecrets() {
+  try {
+    for await (const secretProps of client.listPropertiesOfSecrets()) {
+      const name = secretProps.name;
+
+      try {
+        const secret = await client.getSecret(name);
+
+        // Convert kebab-case → ENV format
+        const envName = name.toUpperCase().replace(/-/g, "_");
+
+        process.env[envName] = secret.value;
+
+        console.log(`✅ Loaded ${envName}`);
+      } catch (error) {
+        console.error(`❌ Failed to load secret ${name}:`, error.message);
+      }
+    }
+  } catch (error) {
+    console.error('❌ Failed to list secrets from Key Vault:', error.message);
+    throw error; // Re-throw to be caught by caller
+  }
+}
+
+export async function loadSecretsAWS(secretNames = []) {
   const names = Array.isArray(secretNames)
     ? secretNames
     : (typeof secretNames === "string" && secretNames.trim()

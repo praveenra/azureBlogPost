@@ -1,14 +1,13 @@
 import mongoose from "mongoose";
+import config from "./index.js";
 
 const connectDB = async () => {
     try {
-        console.log("process.env.MONGODB_URI:", process.env.MONGODB_URI);
-        if (!process.env.MONGODB_URI) {
-            throw new Error("MONGODB_URI is not defined");
+        if (!config.mongoUri) {
+            throw new Error("mongoUri is not defined in config");
         }
 
-        // await mongoose.connect(process.env.MONGODB_URI);
-        await mongoose.connect(process.env.MONGODB_URI, {
+        await mongoose.connect(config.mongoUri, {
             serverSelectionTimeoutMS: 30000,
             socketTimeoutMS: 45000
         });
